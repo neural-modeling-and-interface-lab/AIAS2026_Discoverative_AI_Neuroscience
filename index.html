@@ -181,10 +181,9 @@ img{max-width:100%;display:block}
   padding-bottom:26px;margin-bottom:42px;border-bottom:1px solid var(--line-d);
 }
 .mh-slot{
-  display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
-  height:60px;min-width:215px;padding:0 24px;
-  border:1px dashed rgba(255,255,255,.26);border-radius:12px;
-  background:rgba(255,255,255,.025);
+  display:inline-flex;align-items:center;justify-content:flex-start;gap:.55rem;
+  height:150px;min-width:420px;padding:0;
+  border:0;background:transparent;
 }
 .mh-slot .mh-ph{
   font-family:var(--font-mono);font-size:.74rem;letter-spacing:.15em;
@@ -192,11 +191,15 @@ img{max-width:100%;display:block}
 }
 .mh-slot .mh-ph svg{margin-right:.5em;opacity:.7}
 .mh-img{height:50px;width:auto}            /* used when a real <img> logo is dropped in */
+.mh-img--workshop{height:144px;max-width:min(720px,58vw);object-fit:contain}
+.mh-img--aias{height:56px;border-radius:2px}
 .mh-host{display:flex;align-items:center;gap:.95rem}
 .mh-host-label{
   font-family:var(--font-mono);font-size:.66rem;letter-spacing:.18em;
   text-transform:uppercase;color:var(--t-on-dark-soft);white-space:nowrap;
 }
+.mh-host-link{display:inline-flex;align-items:center;transition:transform .15s ease,filter .2s ease}
+.mh-host-link:hover{transform:translateY(-1px);filter:brightness(1.08)}
 .mh-aias{
   display:inline-flex;align-items:baseline;gap:.45rem;
   padding:.45rem .95rem;border:1px solid var(--line-d);border-radius:10px;
@@ -288,8 +291,19 @@ img{max-width:100%;display:block}
 }
 .inst--host{color:#fff}
 .inst-sep{width:1px;height:20px;background:var(--line-d)}
-/* swap these spans for <img class="inst-logo" src="assets/logos/usc.svg"> when you have official files */
-.inst-logo{height:30px;width:auto}
+.inst-logo-slot{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:150px;height:72px;padding:0;
+  border:0;background:transparent;
+}
+.inst-logo{
+  width:auto;height:auto;max-width:100%;max-height:64px;object-fit:contain;
+  filter:drop-shadow(0 2px 10px rgba(0,0,0,.35));
+  opacity:.94;
+}
+.inst-logo--usc{max-width:142px;max-height:54px}
+.inst-logo--stanford{max-width:62px;max-height:62px}
+.inst-logo--uconn{max-width:64px;max-height:64px}
 
 /* ============================================================
    ABOUT
@@ -356,6 +370,7 @@ img{max-width:100%;display:block}
   font-family:var(--font-display);font-weight:600;font-size:1.6rem;color:#fff;
   background:linear-gradient(135deg,var(--violet),var(--coral));
   letter-spacing:.02em;
+  object-fit:cover;
   /* replace with: <img class="spk-photo" src="assets/speakers/lu-chen.jpg" alt="..."> */
 }
 .spk-photo.alt{background:linear-gradient(135deg,var(--ink-3),var(--cyan))}
@@ -493,6 +508,7 @@ img{max-width:100%;display:block}
   display:flex;align-items:center;justify-content:center;
   font-family:var(--font-display);font-weight:600;font-size:1.35rem;color:#fff;
   background:linear-gradient(135deg,var(--violet),var(--cyan));
+  object-fit:cover;
   /* replace with: <img class="org-photo" src="assets/organizers/dong-song.jpg" alt="..."> */
 }
 .org-photo.c2{background:linear-gradient(135deg,var(--coral),var(--violet))}
@@ -623,7 +639,8 @@ a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--
   .topic-grid,.spk-grid,.org-grid,.pc-grid{grid-template-columns:1fr}
   .hero{padding:92px 0 0}
   .masthead{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:32px}
-  .mh-slot{width:100%;min-width:0}
+  .mh-slot{width:100%;min-width:0;height:112px}
+  .mh-img--workshop{height:108px;max-width:100%}
   .slot{grid-template-columns:84px 1fr;gap:14px}
   .slot .kind{display:none}
   .slot--key{margin-left:-14px;padding-left:12px}
@@ -665,23 +682,15 @@ a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--
 
     <!-- ===== MASTHEAD: workshop logo (left) + AIAS+ logo (right) ===== -->
     <div class="masthead">
-      <!-- WORKSHOP LOGO — replace this whole .mh-slot with:
-           <img class="mh-img" src="assets/logos/workshop-logo.svg" alt="Discoverative AI for Neuroscience"> -->
-      <div class="mh-slot" role="img" aria-label="Workshop logo (placeholder)">
-        <span class="mh-ph">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
-          Workshop logo
-        </span>
+      <div class="mh-slot">
+        <img class="mh-img mh-img--workshop" src="assets/logos/workshop-logo-option-c-white.png" alt="Discoverative AI for Neuroscience">
       </div>
 
       <div class="mh-host">
         <span class="mh-host-label">Hosted&nbsp;at</span>
-        <!-- AIAS+ LOGO — replace this .mh-aias span with:
-             <img class="mh-img" src="assets/logos/aiasplus.svg" alt="AIAS+ 2026"> -->
-        <span class="mh-aias">
-          <span class="mh-aias-mark">AIAS<span class="plus">+</span></span>
-          <span class="mh-aias-yr">2026</span>
-        </span>
+        <a class="mh-host-link" href="https://www.aiasplus.org/vision-for-discoverative-intelligence" target="_blank" rel="noopener" aria-label="AIAS+ Chen Institute Symposium for AI Advancing Science and Society">
+          <img class="mh-img mh-img--aias" src="assets/logos/aiasplus-discoverative-intelligence.png" alt="AIAS+ Chen Institute Symposium for AI Advancing Science and Society">
+        </a>
       </div>
     </div>
 
@@ -761,10 +770,15 @@ a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--
     <div class="insts">
       <div class="insts-inner">
         <span class="insts-label">Organized&nbsp;by</span>
-        <!-- Swap each for: <img class="inst-logo" src="assets/logos/usc.svg" alt="USC"> -->
-        <span class="inst">USC</span>
-        <span class="inst">Stanford</span>
-        <span class="inst">UConn</span>
+        <span class="inst-logo-slot">
+          <img class="inst-logo inst-logo--usc" src="assets/logos/logo-usc-standard.svg" alt="USC">
+        </span>
+        <span class="inst-logo-slot">
+          <img class="inst-logo inst-logo--stanford" src="assets/logos/stanford-block-s-transparent.png" alt="Stanford">
+        </span>
+        <span class="inst-logo-slot">
+          <img class="inst-logo inst-logo--uconn" src="assets/logos/uconn-seal.png" alt="University of Connecticut">
+        </span>
       </div>
     </div>
   </div>
@@ -856,25 +870,25 @@ a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--
     </div>
     <div class="spk-grid">
       <article class="spk reveal">
-        <div class="spk-photo">YL</div>
+        <img class="spk-photo" src="assets/speakers/yan-liu.jpg" alt="Yan Liu">
         <h3>Yan Liu</h3>
         <div class="aff">University of Southern California</div>
         <div class="talk">Talk title to be announced.</div>
       </article>
       <article class="spk reveal">
-        <div class="spk-photo alt">LC</div>
+        <img class="spk-photo alt" src="assets/speakers/lu-chen.jpg" alt="Lu Chen">
         <h3>Lu Chen</h3>
         <div class="aff">Stanford University</div>
         <div class="talk">Talk title to be announced.</div>
       </article>
       <article class="spk reveal">
-        <div class="spk-photo">DS</div>
+        <img class="spk-photo" src="assets/speakers/dongjin-song.png" alt="Dongjin Song">
         <h3>Dongjin Song</h3>
         <div class="aff">University of Connecticut</div>
         <div class="talk">Talk title to be announced.</div>
       </article>
       <article class="spk reveal">
-        <div class="spk-photo alt">DS</div>
+        <img class="spk-photo alt" src="assets/speakers/dong-song.png" alt="Dong Song">
         <h3>Dong Song</h3>
         <div class="aff">University of Southern California</div>
         <div class="talk">Talk title to be announced.</div>
@@ -1004,7 +1018,7 @@ a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--
     <div class="org-grid">
       <article class="org reveal">
         <div class="org-top">
-          <div class="org-photo">DS</div>
+          <img class="org-photo" src="assets/organizers/dong-song.png" alt="Dong Song">
           <div>
             <div class="org-name">Dong Song</div>
             <div class="org-aff">University of Southern California</div>
@@ -1020,7 +1034,7 @@ a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--
 
       <article class="org reveal">
         <div class="org-top">
-          <div class="org-photo c2">DS</div>
+          <img class="org-photo c2" src="assets/organizers/dongjin-song.png" alt="Dongjin Song">
           <div>
             <div class="org-name">Dongjin Song</div>
             <div class="org-aff">University of Connecticut</div>
@@ -1034,7 +1048,7 @@ a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--
 
       <article class="org reveal">
         <div class="org-top">
-          <div class="org-photo c3">LC</div>
+          <img class="org-photo c3" src="assets/organizers/lu-chen.jpg" alt="Lu Chen">
           <div>
             <div class="org-name">Lu Chen</div>
             <div class="org-aff">Stanford University</div>
