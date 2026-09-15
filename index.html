@@ -354,14 +354,40 @@ img{max-width:100%;display:block}
 }
 
 /* ============================================================
-   SPEAKERS
+   INVITED EXPERTS
    ============================================================ */
+.expert-roles{
+  display:grid;gap:14px;margin-top:38px;max-width:960px;
+}
+.expert-role{
+  display:grid;grid-template-columns:minmax(180px,.7fr) 2fr;gap:24px;
+  align-items:start;padding:18px 22px;border-left:3px solid var(--coral);
+  border-radius:0 12px 12px 0;background:rgba(255,122,89,.055);
+}
+.expert-role--panel{
+  border-left-color:var(--violet);background:rgba(84,72,160,.055);
+}
+.expert-role h3{
+  font-family:var(--font-display);font-size:1.08rem;font-weight:600;
+}
+.expert-role p{
+  margin-top:.25rem;font-size:.82rem;color:var(--t-on-light-soft);
+}
+.expert-role ul{
+  display:flex;flex-wrap:wrap;gap:.45rem .65rem;list-style:none;
+}
+.expert-role li{
+  font-family:var(--font-mono);font-size:.72rem;letter-spacing:.035em;
+  color:var(--ink-3);background:var(--card);border:1px solid var(--line-l);
+  border-radius:999px;padding:.38rem .68rem;
+}
 .spk-grid{
   display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:54px;
 }
 .spk{
   background:var(--card);border:1px solid var(--line-l);border-radius:var(--r);
   padding:26px;transition:transform .2s ease,box-shadow .25s ease;
+  scroll-margin-top:90px;
 }
 .spk:hover{transform:translateY(-3px);box-shadow:0 22px 50px -28px rgba(27,30,56,.4)}
 .spk-photo{
@@ -388,8 +414,16 @@ img{max-width:100%;display:block}
 .spk .tag{
   display:inline-block;font-family:var(--font-mono);font-size:.64rem;
   letter-spacing:.12em;text-transform:uppercase;
-  color:var(--cyan);border:1px solid rgba(88,198,232,.4);
-  border-radius:5px;padding:.2em .5em;margin-top:.9rem;
+  border:1px solid;border-radius:5px;padding:.28em .58em;
+}
+.spk-tags{
+  display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.75rem;
+}
+.spk .tag--speaker{
+  color:#245f91;border-color:rgba(36,95,145,.48);background:rgba(36,95,145,.1);
+}
+.spk .tag--panelist{
+  color:#5b4396;border-color:rgba(91,67,150,.48);background:rgba(91,67,150,.1);
 }
 .spk--soon{
   display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
@@ -415,6 +449,11 @@ img{max-width:100%;display:block}
   transition:background .2s;
 }
 .slot:hover{background:rgba(255,255,255,.03)}
+.slot.schedule-link{cursor:pointer}
+.slot.schedule-link:hover .time,.slot.schedule-link:hover .what{color:var(--coral)}
+.slot.schedule-link:focus-visible{
+  outline:2px solid var(--cyan);outline-offset:6px;border-radius:6px;
+}
 .slot .time{font-family:var(--font-mono);font-size:.92rem;color:var(--cyan);font-weight:500}
 .slot .what{font-size:1.05rem;color:#fff;font-weight:500}
 .slot .what small{display:block;font-weight:400;font-size:.86rem;color:var(--t-on-dark-soft);margin-top:.2rem;font-family:var(--font-sans)}
@@ -491,6 +530,9 @@ img{max-width:100%;display:block}
 .mod-card .role{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
 .mod-card .name{font-family:var(--font-display);font-weight:600;font-size:1.1rem;margin-top:.2rem}
 .mod-card .mc-org{font-size:.82rem;color:var(--t-on-dark-soft)}
+.panel-jump{display:block;color:#fff;transition:color .2s}
+.panel-jump:hover{color:var(--cyan)}
+.panel-jump span{font-family:var(--font-mono);font-size:.8em;margin-left:.2em}
 .panel-aside{
   border:1px solid var(--line-d);border-radius:var(--r);padding:26px;
   background:rgba(10,13,36,.4);
@@ -641,6 +683,7 @@ a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--
   .section{padding:72px 0}
   .wrap{padding:0 20px}
   .topic-grid,.spk-grid,.org-grid,.pc-grid{grid-template-columns:1fr}
+  .expert-role{grid-template-columns:1fr;gap:12px;padding:18px}
   .hero{padding:92px 0 0}
   .masthead{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:32px}
   .mh-slot{width:100%;min-width:0;height:200px}
@@ -666,7 +709,7 @@ a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--
     <div class="nav-links" id="navLinks">
       <a href="#about">About</a>
       <a href="#topics">Topics</a>
-      <a href="#speakers">Speakers</a>
+      <a href="#speakers">Experts</a>
       <a href="#schedule">Schedule</a>
       <a href="#participate">Participate</a>
       <a href="#organizers">Organizers</a>
@@ -863,38 +906,83 @@ a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--
   </div>
 </section>
 
-<!-- ====================== SPEAKERS ====================== -->
+<!-- ====================== INVITED EXPERTS ====================== -->
 <section class="section" id="speakers">
   <div class="wrap">
     <div class="reveal">
-      <span class="eyebrow">Invited speakers</span>
-      <h2 class="sec-title">Voices from both fields</h2>
-      <p class="sec-intro">Invited speakers will each give a 30-minute talk followed by 5 minutes of Q&amp;A.</p>
+      <span class="eyebrow">Invited experts</span>
+      <h2 class="sec-title">Meet the researchers shaping the conversation</h2>
+      <p class="sec-intro">Our invited experts bring perspectives spanning neuroscience, artificial intelligence, research strategy, and scientific innovation.</p>
+    </div>
+    <div class="expert-roles reveal" aria-label="Expert roles">
+      <div class="expert-role">
+        <div>
+          <h3>Speakers</h3>
+          <p>30-minute talk + 5-minute Q&amp;A</p>
+        </div>
+        <ul aria-label="Invited speakers">
+          <li>Dong Song</li>
+          <li>Shaul Druckmann</li>
+          <li>Joseph Monaco</li>
+          <li>Wei Wang</li>
+        </ul>
+      </div>
+      <div class="expert-role expert-role--panel" id="panelists-role">
+        <div>
+          <h3>Panelists</h3>
+          <p>Audience questions and direct discussion</p>
+        </div>
+        <ul aria-label="Panelists">
+          <li>Charles Ng</li>
+          <li>Joseph Monaco</li>
+          <li>Lu Chen</li>
+          <li>Shaul Druckmann</li>
+          <li>Wei Wang</li>
+        </ul>
+      </div>
     </div>
     <div class="spk-grid">
-      <article class="spk reveal">
-        <img class="spk-photo alt" src="assets/speakers/lu-chen.jpg" alt="Lu Chen">
-        <h3>Lu Chen</h3>
-        <div class="aff">Stanford University</div>
-        <p class="spk-bio">Professor of Neurosurgery and of Psychiatry and Behavioral Sciences at Stanford. Her research examines the cellular and molecular mechanisms of synapse function and synaptic plasticity.</p>
-      </article>
-      <article class="spk reveal">
-        <img class="spk-photo" src="assets/speakers/dongjin-song.png" alt="Dongjin Song">
-        <h3>Dongjin Song</h3>
-        <div class="aff">University of Connecticut</div>
-        <p class="spk-bio">Associate Professor in UConn's School of Computing. His research focuses on AI and machine learning for time-series analysis, graph learning, and evolving real-world systems.</p>
-      </article>
-      <article class="spk reveal">
+      <article class="spk reveal" id="expert-dong-song">
         <img class="spk-photo alt" src="assets/speakers/dong-song.png" alt="Dong Song">
         <h3>Dong Song</h3>
         <div class="aff">University of Southern California</div>
+        <div class="spk-tags"><span class="tag tag--speaker">Speaker</span></div>
         <p class="spk-bio">Associate Professor of Neurological Surgery and Biomedical Engineering at USC and director of the Neural Modeling and Interface Laboratory. His research includes neural modeling, memory prostheses, and neural interface technologies.</p>
       </article>
+      <article class="spk reveal" id="expert-shaul-druckmann">
+        <img class="spk-photo" src="assets/speakers/shaul_druckmann.avif" alt="Shaul Druckmann">
+        <h3>Shaul Druckmann</h3>
+        <div class="aff">Stanford University</div>
+        <div class="spk-tags"><span class="tag tag--speaker">Speaker</span><span class="tag tag--panelist">Panelist</span></div>
+        <p class="spk-bio">Shaul Druckmann is an associate professor of neurobiology and psychiatry and behavioral sciences at Stanford University. His laboratory combines neural-population recordings, mathematical theory, and circuit analysis to understand how brain networks represent information and perform computations. His research on distributed and resilient memory systems offers biological principles for developing more robust and interpretable AI.</p>
+      </article>
+      <article class="spk reveal" id="expert-joseph-monaco">
+        <img class="spk-photo alt" src="assets/speakers/Joseph_monaco.jpeg" alt="Joseph Monaco">
+        <h3>Joseph Monaco</h3>
+        <div class="aff">NIH / NINDS</div>
+        <div class="spk-tags"><span class="tag tag--speaker">Speaker</span><span class="tag tag--panelist">Panelist</span></div>
+        <p class="spk-bio">Joseph Monaco is a scientific program manager in the Office of the BRAIN Director at NIH/NINDS. His work spans NeuroAI, open neuroscience data systems, and the responsible use of AI, building on earlier computational research into hippocampal dynamics and spatial cognition. He brings a national perspective on the data infrastructure, research priorities, and ethical questions shaping AI-enabled neuroscience.</p>
+      </article>
+      <article class="spk reveal" id="expert-wei-wang">
+        <img class="spk-photo" src="assets/speakers/WEi_wang.jpg" alt="Wei Wang">
+        <h3>Wei Wang</h3>
+        <div class="aff">University of California, Los Angeles</div>
+        <div class="spk-tags"><span class="tag tag--speaker">Speaker</span><span class="tag tag--panelist">Panelist</span></div>
+        <p class="spk-bio">Wei Wang is the Leonard Kleinrock Chair Professor of Computer Science and Computational Medicine at UCLA and director of the Scalable Analytics Institute. Her research develops machine-learning and data-mining methods for large, complex biomedical datasets, including work in causal discovery and computer-assisted experiment planning. Her work demonstrates how AI can move beyond recognizing patterns to help scientists generate hypotheses and design more informative experiments.</p>
+      </article>
       <article class="spk reveal">
-        <div class="spk-photo tbc">NIH</div>
-        <h3>NIH NeuroAI Initiative</h3>
-        <div class="aff">NIH</div>
-        <div class="talk">Emerging funding directions and research priorities at the intersection of AI and brain science.</div>
+        <img class="spk-photo alt" src="assets/speakers/chuck%20ng.jpeg" alt="Charles “Chuck” Ng">
+        <h3>Charles “Chuck” Ng</h3>
+        <div class="aff">Foundation for Science &amp; AI Research</div>
+        <div class="spk-tags"><span class="tag tag--panelist">Panelist</span></div>
+        <p class="spk-bio">Charles “Chuck” Ng is an entrepreneur and technology investor who co-founded Eureka Therapeutics and has invested in or advised companies including Databricks, Ironclad, Mammoth Biosciences, Meta, and Alibaba. As co-founder of the Foundation for Science &amp; AI Research, he focuses on building collaborations among leading scientists, AI researchers, institutions, and industry. He brings a practical perspective on how AI-driven scientific ideas can attract support, cross institutional boundaries, and become real-world innovations.</p>
+      </article>
+      <article class="spk reveal">
+        <img class="spk-photo" src="assets/speakers/lu-chen.jpg" alt="Lu Chen">
+        <h3>Lu Chen</h3>
+        <div class="aff">Stanford University</div>
+        <div class="spk-tags"><span class="tag tag--panelist">Panelist</span></div>
+        <p class="spk-bio">Professor of Neurosurgery and of Psychiatry and Behavioral Sciences at Stanford. Her research examines the cellular and molecular mechanisms of synapse function and synaptic plasticity.</p>
       </article>
     </div>
   </div>
@@ -905,19 +993,24 @@ a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--
   <div class="wrap">
     <div class="panel-grid">
       <div class="reveal">
-        <span class="eyebrow">Closing panel</span>
+        <span class="eyebrow">Interactive panel</span>
         <h2>Where does discoverative AI go next?</h2>
-        <p>Invited speakers and attendees will discuss open challenges, future directions, and opportunities for collaboration.</p>
+        <p>Moderated by Dongjin Song and Dong Song, this audience-facing conversation invites attendees to ask questions, interact directly with panelists, and explore open challenges, future directions, and opportunities for collaboration.</p>
         <div class="panel-mod">
           <div class="mod-card">
-            <div class="role">Moderator</div>
-            <div class="name">Dong Song</div>
-            <div class="mc-org">USC</div>
+            <div class="role">Moderators</div>
+            <div class="name">Dongjin Song + Dong Song</div>
+            <div class="mc-org">UConn + USC</div>
           </div>
           <div class="mod-card">
-            <div class="role">Moderator</div>
-            <div class="name">Dongjin Song</div>
-            <div class="mc-org">UConn</div>
+            <div class="role">Format</div>
+            <div class="name">Audience-led Q&amp;A</div>
+            <div class="mc-org">Questions and dialogue encouraged</div>
+          </div>
+          <div class="mod-card">
+            <div class="role">Panel</div>
+            <a class="name panel-jump" href="#panelists-role">Five invited experts <span aria-hidden="true">↑</span></a>
+            <div class="mc-org">Neuroscience, AI, strategy, and translation</div>
           </div>
         </div>
       </div>
@@ -943,17 +1036,17 @@ a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--
       <p class="sec-intro">Invited presentations, audience Q&amp;A, and a closing panel bringing together AI and neuroscience communities.</p>
       <div class="sched-note">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        Tentative program: Friday, November 6, 2026 (Day 2). Session times are confirmed; speaker order and the final program may change as additional speakers are confirmed. Room assignment to be announced.
+        Tentative program: Friday, November 6, 2026 (Day 2). Session times are confirmed; speaker order and the final program may change. Room assignment to be announced.
       </div>
     </div>
     <div class="sched reveal">
       <div class="slot"><div class="time">10:10 AM</div><div class="what">Welcome and workshop framing<small>Dong Song and Dongjin Song</small></div><div class="kind">Organizers</div></div>
-      <div class="slot slot--key"><div class="time">10:15 AM</div><div class="what">Invited Speaker - To be announced<small>30-minute talk + 5-minute Q&amp;A</small></div><div class="kind">Invited talk</div></div>
-      <div class="slot slot--key"><div class="time">10:50 AM</div><div class="what">Invited Speaker - Lu Chen<small>30-minute talk + 5-minute Q&amp;A</small></div><div class="kind">Invited talk</div></div>
-      <div class="slot slot--key"><div class="time">11:25 AM</div><div class="what">Invited Speaker - Dongjin Song<small>30-minute talk + 5-minute Q&amp;A</small></div><div class="kind">Invited talk</div></div>
+      <a class="slot slot--key schedule-link" href="#expert-dong-song" aria-label="View Dong Song's expert profile"><div class="time">10:15 AM</div><div class="what">Invited Speaker - Dong Song<small>30-minute talk + 5-minute Q&amp;A</small></div><div class="kind">Invited talk</div></a>
+      <a class="slot slot--key schedule-link" href="#expert-shaul-druckmann" aria-label="View Shaul Druckmann's expert profile"><div class="time">10:50 AM</div><div class="what">Invited Speaker - Shaul Druckmann<small>30-minute talk + 5-minute Q&amp;A</small></div><div class="kind">Invited talk</div></a>
+      <a class="slot slot--key schedule-link" href="#expert-joseph-monaco" aria-label="View Joseph Monaco's expert profile"><div class="time">11:25 AM</div><div class="what">Invited Speaker - Joseph Monaco<small>30-minute talk + 5-minute Q&amp;A</small></div><div class="kind">Invited talk</div></a>
       <div class="slot slot--break"><div class="time">12:00 PM</div><div class="what">Transition to lunch</div><div class="kind">Break</div></div>
-      <div class="slot slot--key"><div class="time">2:00 PM</div><div class="what">Invited Speaker - Dong Song<small>30-minute talk + 5-minute Q&amp;A</small></div><div class="kind">Invited talk</div></div>
-      <div class="slot"><div class="time">2:35 PM</div><div class="what">Panel discussion<small>Open challenges, future directions, and collaboration - moderated by Dong Song and Dongjin Song</small></div><div class="kind">Panel</div></div>
+      <a class="slot slot--key schedule-link" href="#expert-wei-wang" aria-label="View Wei Wang's expert profile"><div class="time">2:00 PM</div><div class="what">Invited Speaker - Wei Wang<small>30-minute talk + 5-minute Q&amp;A</small></div><div class="kind">Invited talk</div></a>
+      <div class="slot"><div class="time">2:35 PM</div><div class="what">Interactive panel discussion<small>Audience Q&amp;A with Charles Ng, Joseph Monaco, Lu Chen, Shaul Druckmann, and Wei Wang</small></div><div class="kind">Panel</div></div>
       <div class="slot"><div class="time">3:20 PM</div><div class="what">Closing remarks and next steps</div><div class="kind">Organizers</div></div>
     </div>
   </div>
@@ -1110,7 +1203,7 @@ a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--
         <h5>Explore</h5>
         <a href="#about">About</a>
         <a href="#topics">Themes &amp; topics</a>
-        <a href="#speakers">Speakers</a>
+        <a href="#speakers">Invited experts</a>
         <a href="#schedule">Schedule</a>
         <a href="#participate">Participation</a>
       </div>
